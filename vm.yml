@@ -1,0 +1,63 @@
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create resource group
+    azure_rm_resourcegroup:
+      name: kotestResourceGroup
+      location: westindia
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: kotestResourceGroup
+      name: kotestVnet
+      address_prefixes: "10.0.0.0/16"
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: kotestResourceGroup
+      name: kotestSubnet
+      address_prefix: "10.0.1.0/24"
+      virtual_network: kotestVnet
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: kotestResourceGroup
+      allocation_method: Static
+      name: kotestPublicIP
+    register: output_ip_address
+  - name: Dump public IP for VM which will be created
+    debug:
+      msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+  - name: Create Network Security Group that allows SSH
+    azure_rm_securitygroup:
+      resource_group: kotestResourceGroup
+      name: kotestNetworkSecurityGroup
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 1001
+          direction: Inbound
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: kotestResourceGroup
+      name: kotestNIC
+      virtual_network: kotestVnet
+      subnet: kotestSubnet
+      public_ip_name: kotestPublicIP
+      security_group: kotestNetworkSecurityGroup
+  - name: Create VM
+    azure_rm_virtualmachine:
+     resource_group: kotestResourceGroup
+     name: kotest-vm
+     vm_size: Standard_B1ms
+     admin_username: koadmin
+     ssh_password_enabled: false
+     ssh_public_keys:
+       - path: /home/azureuser/.ssh/authorized_keys
+         key_data: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8eaAwOO2UwefGxHGofKwZ4q2IaW2pe4Pa2XWgR8vXJpbs5JKfUtrMGq+whdPrDPzwKkeNyzO/1OkHG2pV7DETC31oUD8x9p1tAWCBWZOx6/U+2IXUoy+KnA4AxAMfchhVVaNmyuhiHZUH9d58Sph26va5l2aY7U8byaU7mQRgwR+KZHxr1of/PAO58yjDV7KPCrqeNqTRer+FDidQOMGFwmbwUHWqrxRvgshWkqj0Yz4OtoF3VDA90GoYHKdqYSPCHdnTrQBNmCGbMYq+IrE9KGjzRdMiten8XFTlNE7NHH/LbsxTIiUfWs7GXhlQfZYfkK0/1+6/LKrdUGEHS0UX kaustubho@kaustubho-ubuntu"
+     network_interfaces: kotestNIC
+     image:
+       offer: CentOS
+       publisher: OpenLogic
+       sku: '7.5'
+       version: latest
