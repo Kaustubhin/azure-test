@@ -53,7 +53,7 @@
      admin_username: koadmin
      ssh_password_enabled: false
      ssh_public_keys:
-       - path: /home/azureuser/.ssh/authorized_keys
+       - path: /home/koadmin/.ssh/authorized_keys
          key_data: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8eaAwOO2UwefGxHGofKwZ4q2IaW2pe4Pa2XWgR8vXJpbs5JKfUtrMGq+whdPrDPzwKkeNyzO/1OkHG2pV7DETC31oUD8x9p1tAWCBWZOx6/U+2IXUoy+KnA4AxAMfchhVVaNmyuhiHZUH9d58Sph26va5l2aY7U8byaU7mQRgwR+KZHxr1of/PAO58yjDV7KPCrqeNqTRer+FDidQOMGFwmbwUHWqrxRvgshWkqj0Yz4OtoF3VDA90GoYHKdqYSPCHdnTrQBNmCGbMYq+IrE9KGjzRdMiten8XFTlNE7NHH/LbsxTIiUfWs7GXhlQfZYfkK0/1+6/LKrdUGEHS0UX kaustubho@kaustubho-ubuntu"
      network_interfaces: kotestNIC
      image:
