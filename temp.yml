@@ -1,3 +1,4 @@
+---
 - name: Create Azure Deploy
   azure_rm_deployment:
     state: present
