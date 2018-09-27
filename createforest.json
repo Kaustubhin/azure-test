@@ -44,7 +44,7 @@
 		"addressPrefix": "10.0.0.0/16",
 		"subnetName": "Subnet",
 		"subnetPrefix": "10.0.0.0/24",
-		"publicIPAddressName": "ko-arm-PublicIP",
+		"publicIPAddressName": "koPublicIP",
 		"vmName": "ko-arm-WinVM",
 		"virtualNetworkName": "ko-arm-VNET",
 		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
