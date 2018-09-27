@@ -118,7 +118,6 @@
 		{
 			"apiVersion": "2017-03-30",
 			"type": "Microsoft.Compute/virtualMachines",
-			"vmCount": 1,
 			"name": "[variables('vmName')]",
 			"location": "[parameters('location')]",
 			"dependsOn": [
