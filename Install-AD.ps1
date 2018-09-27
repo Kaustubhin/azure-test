@@ -1,7 +1,8 @@
+Set-ExecutionPolicy RemoteSigned -Force
 Rename-Computer -NewName DC01 -Force
 # Create New Forest, add Domain Controller
-$domainname = “experiencingit.net”
-$netbiosName = “EXPERIENCINGIT”
+$domainname = “koinfo.net”
+$netbiosName = “HQDOMAIN”
 $params = @{
 '-DatabasePath'= 'C:\Windows\NTDS';
 '-DomainMode' = 'Default';
@@ -15,7 +16,4 @@ $params = @{
 '-Force' = $true;
 '-SafeModeAdministratorPassword' = (ConvertTo-SecureString 'Adm1n!$tr@tor' -AsPlainText -Force);}
 Import-Module ADDSDeployment
-Install-ADDSForest @params -CreateDnsDelegation:$false
-
- 
-            
+Install-ADDSForest @params -CreateDnsDelegation:$false   
