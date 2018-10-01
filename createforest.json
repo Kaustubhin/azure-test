@@ -159,28 +159,29 @@
 						"enabled": true,
 						"storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob]"
 					}
-				}
-			}
-		},
-		{
-			"type": "Microsoft.Compute/virtualMachines/extensions",
-			"name": "MyCustomScriptExtension",
-			"apiVersion": "2015-05-01-preview",
-			"location": "[parameters('location')]",
-			"dependsOn": [
-				"[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
-			],
-			"properties": {
-				"publisher": "Microsoft.Compute",
-				"type": "CustomScriptExtension",
-				"typeHandlerVersion": "1.7",
-				"autoUpgradeMinorVersion": true,
-				"settings": {
-					"fileUris": [
-						"https://raw.githubusercontent.com/Kaustubhin/azure-test/master/Install-AD.ps1"
+				},
+				"resources": [{
+					"type": "Microsoft.Compute/virtualMachines/extensions",
+					"name": "MyCustomScriptExtension",
+					"apiVersion": "2015-05-01-preview",
+					"location": "[parameters('location')]",
+					"dependsOn": [
+						"[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
 					],
-					"commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File start.ps1"
-				}
+					"properties": {
+						"publisher": "Microsoft.Compute",
+						"type": "CustomScriptExtension",
+						"typeHandlerVersion": "1.7",
+						"autoUpgradeMinorVersion": true,
+						"settings": {
+							"fileUris": [
+								"https://raw.githubusercontent.com/Kaustubhin/azure-test/master/Install-AD.ps1"
+							],
+							"commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File start.ps1"
+						}
+					}
+
+				}]
 			}
 		}
 	],
