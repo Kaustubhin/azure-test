@@ -3,7 +3,6 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
   "adminUserName": { "value": "koadmin" },
-    "adminPassword": { "value": "Password@123" },
-    "dnsLabelPrefix": { "value": "KO-ARM-DNS"}
-  }
+    "adminPassword": { "value": "Password@123" }
+    }
 }
