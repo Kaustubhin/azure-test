@@ -4,6 +4,6 @@
   "parameters": {
     "adminUserName": { "value": "koadmin" },
     "adminPassword": { "value": "Password@123" },
-    "dnsLabelPrefix": { "value": "KO-ARM-DNS"}
+    "dnsLabelPrefix": { "value": "ko-arm-dns"}
     }
 }
