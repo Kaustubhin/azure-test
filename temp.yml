@@ -7,5 +7,5 @@
       state: present
       resource_group_name: arm-tmp-ko
       template_link: 'https://raw.githubusercontent.com/Kaustubhin/azure-test/master/azurevm.json'
-      parameters_link: 'https://raw.githubusercontent.com/Kaustubhin/azure-test/master/parameters.json'
+      parameters_link: 'https://raw.githubusercontent.com/Kaustubhin/azure-test/master/createforest.parameters.json'
 
