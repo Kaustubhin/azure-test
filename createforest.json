@@ -41,7 +41,7 @@
 			"properties": {
 				"publicIPAllocationMethod": "Dynamic",
 				"dnsSettings": {
-					"domainNameLabel": "[variables('dnsNameForPublicIP')]"
+					"domainNameLabel": "[variables('')]"
 				}
 			}
 		},
@@ -79,7 +79,7 @@
 					"properties": {
 						"privateIPAllocationMethod": "Dynamic",
 						"publicIPAddress": {
-							"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+							"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('dnsLabelPrefix'))]"
 						},
 						"subnet": {
 							"id": "[variables('subnetRef')]"
