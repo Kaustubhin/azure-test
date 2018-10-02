@@ -30,7 +30,7 @@
 		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
 		"vmName": "DC01",
 		"virtualNetworkName": "koarmVNET",
-		"publicIPAddressName": "koarmPublicIP",
+		"publicIPAddressName": "koarm-public",
 		"dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]"
 	},
 	"resources": [{
