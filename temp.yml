@@ -5,7 +5,7 @@
   tasks:
   - azure_rm_deployment:
       state: present
-      resource_group_name: arm-ko
+      resource_group_name: arm-ad-ko
       template_link: 'https://raw.githubusercontent.com/Kaustubhin/azure-test/master/createforest.json'
       parameters_link: 'https://raw.githubusercontent.com/Kaustubhin/azure-test/master/createforest.parameters.json'
 
