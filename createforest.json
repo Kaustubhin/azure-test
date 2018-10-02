@@ -18,7 +18,8 @@
 			"type": "string",
 			"metadata": {
 				"description": "DNSPublic IP used to access the Virtual Machine."
-			},
+			}
+		},
 		"location": {
 			"type": "string",
 			"defaultValue": "[resourceGroup().location]",
