@@ -23,14 +23,14 @@
 		}
 	},
 	"variables": {
-		"nicName": "myVMNic",
+		"nicName": "koarmVMNic",
 		"addressPrefix": "10.0.0.0/16",
 		"subnetName": "Subnet",
 		"subnetPrefix": "10.0.0.0/24",
 		"subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-		"vmName": "MyVM",
-		"virtualNetworkName": "MyVNET",
-		"publicIPAddressName": "myPublicIP",
+		"vmName": "DC01",
+		"virtualNetworkName": "koarmVNET",
+		"publicIPAddressName": "koarmPublicIP",
 		"dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]"
 	},
 	"resources": [{
