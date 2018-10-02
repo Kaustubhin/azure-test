@@ -14,6 +14,6 @@ $params = @{
 '-SysvolPath' = 'C:\Windows\SYSVOL';
 '-Force' = $true;
 '-SafeModeAdministratorPassword' = (ConvertTo-SecureString 'Adm1n!$tr@tor' -AsPlainText -Force);}
-Install-WindowsFeature -name AD-Domain-Services –IncludeManagementTools
+Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 Import-Module ADDSDeployment
-Install-ADDSForest @params -CreateDnsDelegation:$false
+Install-ADDSForest @params -CreateDnsDelegation:$false 
