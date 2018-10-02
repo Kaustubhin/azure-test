@@ -1,8 +1,7 @@
 Set-ExecutionPolicy RemoteSigned -Force
-Rename-Computer -NewName DC01 -Force
 # Create New Forest, add Domain Controller
-$domainname = “koinfo.net”
-$netbiosName = “HQDOMAIN”
+$domainname = "koinfo.net"
+$netbiosName = "HQDOMAIN"
 $params = @{
 '-DatabasePath'= 'C:\Windows\NTDS';
 '-DomainMode' = 'Default';
@@ -15,5 +14,6 @@ $params = @{
 '-SysvolPath' = 'C:\Windows\SYSVOL';
 '-Force' = $true;
 '-SafeModeAdministratorPassword' = (ConvertTo-SecureString 'Adm1n!$tr@tor' -AsPlainText -Force);}
+Install-WindowsFeature -name AD-Domain-Services –IncludeManagementTools
 Import-Module ADDSDeployment
-Install-ADDSForest @params -CreateDnsDelegation:$false   
+Install-ADDSForest @params -CreateDnsDelegation:$false
