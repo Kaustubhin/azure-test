@@ -14,13 +14,7 @@
 				"description": "Password for the Virtual Machine."
 			}
 		},
-		"dnsLabelPrefix": {
-			"type": "string",
-			"metadata": {
-				"description": "DNSPublic IP used to access the Virtual Machine."
-			}
-		},
-		"location": {
+			"location": {
 			"type": "string",
 			"defaultValue": "[resourceGroup().location]",
 			"metadata": {
@@ -85,7 +79,7 @@
 					"properties": {
 						"privateIPAllocationMethod": "Dynamic",
 						"publicIPAddress": {
-							"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('dnsLabelPrefix'))]"
+							"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
 						},
 						"subnet": {
 							"id": "[variables('subnetRef')]"
@@ -156,3 +150,4 @@
 		}
 	}
 }
+
