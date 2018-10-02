@@ -31,122 +31,122 @@
 		"vmName": "MyVM",
 		"virtualNetworkName": "MyVNET",
 		"publicIPAddressName": "myPublicIP",
-		"dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]",
-		"resources": [{
-				"apiVersion": "2017-06-01",
-				"type": "Microsoft.Network/publicIPAddresses",
-				"name": "[variables('publicIPAddressName')]",
-				"location": "[parameters('location')]",
-				"properties": {
-					"publicIPAllocationMethod": "Dynamic",
-					"dnsSettings": {
-						"domainNameLabel": "[variables('dnsNameForPublicIP')]"
-					}
+		"dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]"
+	},
+	"resources": [{
+			"apiVersion": "2017-06-01",
+			"type": "Microsoft.Network/publicIPAddresses",
+			"name": "[variables('publicIPAddressName')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"publicIPAllocationMethod": "Dynamic",
+				"dnsSettings": {
+					"domainNameLabel": "[variables('dnsNameForPublicIP')]"
 				}
-			},
-			{
-				"apiVersion": "2018-04-01",
-				"type": "Microsoft.Network/virtualNetworks",
-				"name": "[variables('virtualNetworkName')]",
-				"location": "[parameters('location')]",
-				"properties": {
-					"addressSpace": {
-						"addressPrefixes": [
-							"[variables('addressPrefix')]"
-						]
-					},
-					"subnets": [{
-						"name": "[variables('subnetName')]",
-						"properties": {
-							"addressPrefix": "[variables('subnetPrefix')]"
-						}
-					}]
-				}
-			},
-			{
-				"apiVersion": "2018-04-01",
-				"type": "Microsoft.Network/networkInterfaces",
-				"name": "[variables('nicName')]",
-				"location": "[parameters('location')]",
-				"dependsOn": [
-					"[variables('publicIPAddressName')]",
-					"[variables('virtualNetworkName')]"
-				],
-				"properties": {
-					"ipConfigurations": [{
-						"name": "ipconfig1",
-						"properties": {
-							"privateIPAllocationMethod": "Dynamic",
-							"publicIPAddress": {
-								"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
-							},
-							"subnet": {
-								"id": "[variables('subnetRef')]"
-							}
-						}
-					}]
-				}
-			},
-			{
-				"apiVersion": "2018-04-01",
-				"type": "Microsoft.Compute/virtualMachines",
-				"name": "[variables('vmName')]",
-				"location": "[parameters('location')]",
-				"dependsOn": [
-					"[variables('nicName')]"
-				],
-				"properties": {
-					"hardwareProfile": {
-						"vmSize": "Standard_D1_v2"
-					},
-					"osProfile": {
-						"computerName": "[variables('vmName')]",
-						"adminUsername": "[parameters('adminUsername')]",
-						"adminPassword": "[parameters('adminPassword')]"
-					},
-					"storageProfile": {
-						"imageReference": {
-							"publisher": "MicrosoftWindowsServer",
-							"offer": "WindowsServer",
-							"sku": "2016-Datacenter",
-							"version": "latest"
-						},
-						"osDisk": {
-							"createOption": "FromImage"
-						}
-					},
-					"networkProfile": {
-						"networkInterfaces": [{
-							"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
-						}]
-					}
+			}
+		},
+		{
+			"apiVersion": "2018-04-01",
+			"type": "Microsoft.Network/virtualNetworks",
+			"name": "[variables('virtualNetworkName')]",
+			"location": "[parameters('location')]",
+			"properties": {
+				"addressSpace": {
+					"addressPrefixes": [
+						"[variables('addressPrefix')]"
+					]
 				},
-				"resources": [{
-					"type": "extensions",
-					"name": "CustomScriptExtension",
-					"apiVersion": "2017-03-30",
-					"location": "[parameters('location')]",
-					"dependsOn": [
-						"[variables('vmName')]"
-					],
+				"subnets": [{
+					"name": "[variables('subnetName')]",
 					"properties": {
-						"publisher": "Microsoft.Compute",
-						"type": "CustomScriptExtension",
-						"typeHandlerVersion": "1.8",
-						"autoUpgradeMinorVersion": true,
-						"settings": {
-							"fileUris": ["https: //raw.githubusercontent.com/Kaustubhin/azure-test/master/Install-AD.ps1"],
-							"commandToExecute": "powershell.exe - ExecutionPolicy Unrestricted - File Install - AD.ps1"
+						"addressPrefix": "[variables('subnetPrefix')]"
+					}
+				}]
+			}
+		},
+		{
+			"apiVersion": "2018-04-01",
+			"type": "Microsoft.Network/networkInterfaces",
+			"name": "[variables('nicName')]",
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[variables('publicIPAddressName')]",
+				"[variables('virtualNetworkName')]"
+			],
+			"properties": {
+				"ipConfigurations": [{
+					"name": "ipconfig1",
+					"properties": {
+						"privateIPAllocationMethod": "Dynamic",
+						"publicIPAddress": {
+							"id": "[resourceId('Microsoft.Network/publicIPAddresses',variables('publicIPAddressName'))]"
+						},
+						"subnet": {
+							"id": "[variables('subnetRef')]"
 						}
 					}
 				}]
 			}
-		],
-		"outputs": {
-			"vm-fqdn": {
-				"type": "string",
-				"value": "[reference(variables('publicIPAddressName'), '2016-03-30').dnsSettings.fqdn]"
-			}
+		},
+		{
+			"apiVersion": "2018-04-01",
+			"type": "Microsoft.Compute/virtualMachines",
+			"name": "[variables('vmName')]",
+			"location": "[parameters('location')]",
+			"dependsOn": [
+				"[variables('nicName')]"
+			],
+			"properties": {
+				"hardwareProfile": {
+					"vmSize": "Standard_D1_v2"
+				},
+				"osProfile": {
+					"computerName": "[variables('vmName')]",
+					"adminUsername": "[parameters('adminUsername')]",
+					"adminPassword": "[parameters('adminPassword')]"
+				},
+				"storageProfile": {
+					"imageReference": {
+						"publisher": "MicrosoftWindowsServer",
+						"offer": "WindowsServer",
+						"sku": "2016-Datacenter",
+						"version": "latest"
+					},
+					"osDisk": {
+						"createOption": "FromImage"
+					}
+				},
+				"networkProfile": {
+					"networkInterfaces": [{
+						"id": "[resourceId('Microsoft.Network/networkInterfaces',variables('nicName'))]"
+					}]
+				}
+			},
+			"resources": [{
+				"type": "extensions",
+				"name": "CustomScriptExtension",
+				"apiVersion": "2017-03-30",
+				"location": "[parameters('location')]",
+				"dependsOn": [
+					"[variables('vmName')]"
+				],
+				"properties": {
+					"publisher": "Microsoft.Compute",
+					"type": "CustomScriptExtension",
+					"typeHandlerVersion": "1.8",
+					"autoUpgradeMinorVersion": true,
+					"settings": {
+						"fileUris": ["https: //raw.githubusercontent.com/Kaustubhin/azure-test/master/Install-AD.ps1"],
+						"commandToExecute": "powershell.exe - ExecutionPolicy Unrestricted - File Install - AD.ps1"
+					}
+				}
+			}]
+		}
+	],
+	"outputs": {
+		"vm-fqdn": {
+			"type": "string",
+			"value": "[reference(variables('publicIPAddressName'), '2016-03-30').dnsSettings.fqdn]"
 		}
 	}
 }
