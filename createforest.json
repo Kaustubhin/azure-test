@@ -31,7 +31,7 @@
 		"vmName": "DC01",
 		"virtualNetworkName": "koarmVNET",
 		"publicIPAddressName": "koarmpublic",
-		"dnsNameForPublicIP": "[uniqueString(resourceGroup().id)]"
+		"dnsNameForPublicIP": "koadarmdns"
 	},
 	"resources": [{
 			"apiVersion": "2017-06-01",
