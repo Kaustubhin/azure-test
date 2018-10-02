@@ -137,7 +137,7 @@
 					"autoUpgradeMinorVersion": true,
 					"settings": {
 						"fileUris": "[https: //raw.githubusercontent.com/Kaustubhin/azure-test/master/Install-AD.ps1]",
-						"commandToExecute": "powershell.exe - ExecutionPolicy Unrestricted - File Install-AD.ps1"
+						"commandToExecute": "powershell.exe - ExecutionPolicy Unrestricted - File ./Install-AD.ps1"
 					}
 				}
 			}]
